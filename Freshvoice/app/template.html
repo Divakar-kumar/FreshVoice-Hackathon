@@ -1,0 +1,244 @@
+<html>
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+  <script src="https://static.freshdev.io/fdk/2.0/assets/fresh_client.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.2/firebase-analytics.js"></script>
+  <script src="microsoft.cognitiveservices.speech.sdk.bundle.js"></script>
+  <script src="app.js"></script>
+  <script src="features/translator/translator.js"></script>
+  <script src="features/alexa/alexa.js"></script>
+  <script src="features/google/google.js"></script>
+  <script src="features/browser/luis.js"></script>
+  <script src="constants/appConstants.js"></script>
+  <script src="features/freshdesk/freshdesk.js"></script>
+  <script src="features/firebase/firebase.js"></script>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="https://static.freshdev.io/fdk/2.0/assets/freshdesk.css">
+</head>
+
+<body>
+  <div class="fw-widget-wrapper">
+    <div class="action-holder" style="padding-left: 20px;padding-right:20px;margin-top: 20px;">
+      <section class="pricing py-5" style="margin-top: 50px;">
+        <div class="container">
+          <div class="row">
+            <div class="w-100" style="margin-bottom: 40px;">
+              <div class="card mb-5 mb-lg-0" style="padding: 20px">
+                <div class="card-body" style="height: 120px;">
+                  <div class="image_outer_container" style="float: left;">
+                    <div class="green_icon"></div>
+                    <div class="image_inner_container">
+                      <img id="profilePic" src="https://img.icons8.com/color/48/000000/user.png" alt="Avatar"
+                        class="md-avatar rounded-circle size-4">
+                    </div>
+                  </div>
+
+                  <div style="float: left;margin-top: 30px;margin-left: 30px;">
+                    <h3 class="card-price text-center">Hey <span id="profileName"></span> !, Welcome to the Freshvoice
+                    </h3>
+                  </div>
+                  <div style="float: right;margin-top: 30px;">
+                    <a style="width: 200px;text-align: center;" onclick="openModal()" href="#/"
+                      class="btn btn-block btn-warning text-uppercase">Notifications</a>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+            </div>
+            <!-- Free Tier -->
+            <div class="col-lg-4">
+              <div class="card mb-5 mb-lg-0" style="padding: 20px;height: 405px;">
+                <div class="card-body">
+                  <h5 class="card-title text-muted text-uppercase text-center">Microsoft</h5>
+                  <h3 class="card-price text-center">Browser Integration</h3>
+                  <hr>
+                  <div id="bars" style="height: 80px;">
+                    <div class="microsoftbar"></div>
+                    <div class="microsoftbar"></div>
+                    <div class="microsoftbar"></div>
+                    <div class="microsoftbar"></div>
+                    <div class="microsoftbar"></div>
+                    <div class="microsoftbar"></div>
+                    <div class="microsoftbar"></div>
+                    <div class="microsoftbar"></div>
+                    <div class="microsoftbar"></div>
+                    <div class="microsoftbar"></div>
+                  </div>
+                  <ul class="fa-ul">
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>Click on Activate
+                        Microsoft</strong></li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Ask Browser to <strong>Create a
+                        ticket</strong></li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Ask Browser to <strong>Delete all
+                        ticket</strong></li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>It creates a dummy ticket and deletes
+                      ticket created for this demo</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Possibility of voice command is endless
+                    </li>
+                  </ul>
+                  <div class="clearfix"></div>
+                  <a style="margin-top:10px;" id="activatemicrosoft" onclick="activateFeature('microsoft')" href="#/"
+                    class="btn btn-block btn-primary text-uppercase">Activate Microsoft</a>
+                </div>
+              </div>
+            </div>
+            <!-- Plus Tier -->
+            <div class="col-lg-4">
+              <div class="card mb-5 mb-lg-0" style="padding: 20px">
+                <div class="card-body">
+                  <h5 class="card-title text-muted text-uppercase text-center">Amazon</h5>
+                  <h3 class="card-price text-center">Alexa Device</h3>
+                  <hr>
+                  <div id="bars" style="height: 80px;">
+                    <div class="alexabar"></div>
+                    <div class="alexabar"></div>
+                    <div class="alexabar"></div>
+                    <div class="alexabar"></div>
+                    <div class="alexabar"></div>
+                    <div class="alexabar"></div>
+                    <div class="alexabar"></div>
+                    <div class="alexabar"></div>
+                    <div class="alexabar"></div>
+                    <div class="alexabar"></div>
+                  </div>
+
+                  <ul class="fa-ul">
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>Click on Activate Alexa</strong>
+                    </li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Open Alexa Device</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Ask alexa to <strong>Open Fresh
+                        voice</strong></li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Now it prompts you to enter
+                      <strong>Code</strong> to continue</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Enter this code to continue :<strong
+                        id="alexaCode"></strong></li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Ask alexa to <strong>Create / delete
+                        ticket</strong></li>
+                  </ul>
+                  <a id="activatealexa" onclick="activateFeature('alexa')" href="#/"
+                    class="btn btn-block btn-primary text-uppercase">Activate Alexa</a>
+                </div>
+              </div>
+            </div>
+            <!-- Pro Tier -->
+            <div class="col-lg-4">
+              <div class="card" style="padding: 20px">
+                <div class="card-body">
+                  <h5 class="card-title text-muted text-uppercase text-center">Google</h5>
+                  <h6 class="card-price text-center">Google Home</h6>
+                  <hr>
+                  <div id="bars" style="height: 80px;">
+                    <div class="googlebar"></div>
+                    <div class="googlebar"></div>
+                    <div class="googlebar"></div>
+                    <div class="googlebar"></div>
+                    <div class="googlebar"></div>
+                    <div class="googlebar"></div>
+                    <div class="googlebar"></div>
+                    <div class="googlebar"></div>
+                    <div class="googlebar"></div>
+                    <div class="googlebar"></div>
+                  </div>
+                  <ul class="fa-ul">
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span><strong>Click on Activate Google</strong>
+                    </li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Open Google Home device / from app</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Ask Google device to <strong>Create a
+                        ticket</strong></li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Now it prompts you to enter
+                      <strong>Code</strong> to continue</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Enter this code to continue :<strong
+                        id="googlecode"></strong></li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span>Ask Google to <strong>Create / delete
+                        ticket</strong></li>
+                  </ul>
+                  <a id="activategoogle" onclick="activateFeature('google')" href="#/"
+                    class="btn btn-block btn-primary text-uppercase">Activate Google</a>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="w-100" style="margin-top: 50px;">
+              <div class="card mb-5 mb-lg-0" style="padding: 20px">
+
+                <div class="card-body">
+                  <h5 class="card-title text-muted text-uppercase text-center">Microsoft</h5>
+                  <div>
+                    <h3 class="card-price text-center">Live Translator</h3>
+                    <div class="members mb-4" style="float: right; margin-top: -3%;">
+                      <a style="width: 200px;text-align: center;" onclick="openModal()" href="#/"
+                        class="btn btn-block btn-warning text-uppercase">Share</a>
+                    </div>
+                  </div>
+                  <hr>
+                  <div id="bars" style="height: 80px;">
+                    <div class="translatorbar"></div>
+                    <div class="translatorbar"></div>
+                    <div class="translatorbar"></div>
+                    <div class="translatorbar"></div>
+                    <div class="translatorbar"></div>
+                    <div class="translatorbar"></div>
+                    <div class="translatorbar"></div>
+                    <div class="translatorbar"></div>
+                    <div class="translatorbar"></div>
+                    <div class="translatorbar"></div>
+                  </div>
+                  <div style="text-align: center;">
+                    <div style="float: left;width: 50%;">
+                      <label>
+                        <h3> Source language :</h3>
+                      </label><select class="form-control" id="languageSourceOptions">
+                        <option value="ar-EG">Arabic - EG</option>
+                        <option selected="selected" value="en-US">English - US</option>
+                        <option value="ml-IN">Malayalam - ML</option>
+                        <option value="ta-IN">Tamil - TA</option>
+                        <option value="fr-FR">French - FR</option>
+                        <option value="hi-IN">Hindi - IN</option>
+                        <option value="te-IN">Telugu - TE</option>
+                        <option value="ru-RU">Russian - RU</option>
+                        <option value="zh-CN">Chinese - CN</option>
+                      </select>
+                    </div>
+                    <div style="float: left;width: 50%;">
+                      <label>
+                        <h3> Target language :</h3>
+                      </label>
+                      <select class="form-control" id="languageTargetOptions1">
+                        <option value="ar-EG">Arabic - EG</option>
+                        <option selected="selected" value="en-US">English - US</option>
+                        <option value="ml-IN">Malayalam - ML</option>
+                        <option value="ta-IN">Tamil - TA</option>
+                        <option value="fr-FR">French - FR</option>
+                        <option value="hi-IN">Hindi - IN</option>
+                        <option value="te-IN">Telugu - TE</option>
+                        <option value="ru-RU">Russian - RU</option>
+                        <option value="zh-CN">Chinese - CN</option>
+                      </select>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Example textarea</label>
+                    <textarea class="form-control" id="phraseDiv1" rows="5"></textarea>
+                  </div>
+                  <div class="clearfix"></div>
+                  <a id="activatetranslator" onclick="activateFeature('translator')" href="#/"
+                    class="btn btn-block btn-primary text-uppercase">Activate Translator</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+</body>
+<script>
+
+</script>
+
+</html>

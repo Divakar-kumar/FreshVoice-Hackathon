@@ -1,0 +1,14 @@
+let FEATURE_TRANSALATOR="translator";
+let FEATURE_ALEXA="alexa";
+let FEATURE_GOOGLE="google";
+let NOTIFICATION_FAILURE="danger";
+let NOTIFICATION_SUCCESS="success";
+let DEACTIVATED_TRANSLATOR="De-activated Translator";
+let ACTIVATED_TRANSLATOR="Activated Translator";
+let DEACTIVATED_ALEXA="De-activated Alexa";
+let ACTIVATED_ALEXA="Activated Alexa";
+let DEACTIVATED_GOOGLE="De-activated Google";
+let ACTIVATED_GOOGLE="Activated Google";
+let FEATURE_MICROSOFT="microsoft";
+let DEACTIVATED_MICROSOFT="De-activated Microsoft";
+let ACTIVATED_MICROSOFT="Activated Microsoft";
